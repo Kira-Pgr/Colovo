@@ -57,7 +57,8 @@ def train(args):
 
     trainer.fit(use_lora=args.lora_rank)
     # save model checkpoint on only rank0
-    strategy.save_model(model, 'actor_checkpoint.pt', only_rank0=True)
+    strategy.save_model(model, './actor_checkpoint.pt', only_rank0=True)
+    tokenizer.save_pretrained('./tokenizer_checkpoint')
     if args.lora_rank > 0:
         print("rank > 0!")
         torch.save({'model_state_dict': lora.lora_state_dict(trainer.model)}, args.save_path)
