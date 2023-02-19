@@ -26,7 +26,7 @@ def train(args):
 
     # configure model
     tokenizer = AutoTokenizer.from_pretrained(args.pretrain)
-    model = BLOOMActor(pretrained=args.pretrain, lora_rank=args.lora_rank).cuda()
+    model = OPTActor(pretrained=args.pretrain, lora_rank=args.lora_rank).cuda()
     max_len = 1024
 
     # configure optimizer
