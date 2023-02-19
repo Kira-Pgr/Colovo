@@ -1,5 +1,5 @@
 import argparse
-from chatgpt.nn import BLOOMActor, BLOOMCritic, GPTActor, GPTCritic, OPTActor, OPTCritic, RewardModel
+from chatgpt.nn import OPTActor, OPTCritic, RewardModel
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 import loralib as lora
 import torch
