@@ -26,7 +26,7 @@ def train(args):
 
     # configure model
     tokenizer = AutoTokenizer.from_pretrained(args.pretrain)
-    model = AutoModelForSeq2SeqLM.from_pretrained(args.pretrain, torch_dtype="auto", device_map="auto",decoder_input_ids=input_ids_tensor)
+    model = GPTActor(pretrained=args.pretrain)
     max_len = 1024
 
     # configure optimizer
