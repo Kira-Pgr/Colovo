@@ -1,4 +1,5 @@
 import argparse
+from chatgpt.nn import BLOOMActor, BLOOMCritic, GPTActor, GPTCritic, OPTActor, OPTCritic, RewardModel
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 import loralib as lora
 import torch
@@ -7,7 +8,6 @@ from chatgpt.trainer import RewardModelTrainer
 from chatgpt.trainer.strategies import ColossalAIStrategy, DDPStrategy, NaiveStrategy
 from datasets import load_dataset
 from torch.optim import Adam
-from chatgpt.nn import GPTActor, GPTCritic
 from colossalai.nn.optimizer import HybridAdam
 
 
@@ -26,7 +26,7 @@ def train(args):
 
     # configure model
     tokenizer = AutoTokenizer.from_pretrained(args.pretrain)
-    model = GPTActor(pretrained=args.pretrain)
+    model = BLOOMActor(pretrained=args.pretrain, lora_rank=args.lora_rank).cuda()
     max_len = 1024
 
     # configure optimizer
