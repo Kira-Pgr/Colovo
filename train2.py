@@ -7,7 +7,7 @@ from chatgpt.trainer import RewardModelTrainer
 from chatgpt.trainer.strategies import ColossalAIStrategy, DDPStrategy, NaiveStrategy
 from datasets import load_dataset
 from torch.optim import Adam
-
+from chatgpt.nn import GPTActor, GPTCritic
 from colossalai.nn.optimizer import HybridAdam
 
 
