@@ -1,5 +1,5 @@
 import argparse
-from chatgpt.nn import OPTActor, OPTCritic, RewardModel
+from chatgpt.nn import BLOOMActor, BLOOMCritic, RewardModel
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 import loralib as lora
 import torch
@@ -26,7 +26,7 @@ def train(args):
 
     # configure model
     tokenizer = AutoTokenizer.from_pretrained(args.pretrain)
-    model = OPTActor(pretrained=args.pretrain).cuda()
+    model = BLOOMActor(pretrained=args.pretrain, lora_rank=args.lora_rank).cuda()
     max_len = 1024
 
     # configure optimizer
