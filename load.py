@@ -45,7 +45,7 @@ def eval(args):
                              top_p=0.95,
                              num_return_sequences=1)
     output = tokenizer.batch_decode(outputs[0], skip_special_tokens=True)
-    string = ' '.join(output)
+    string = ''.join(output)
     print(string)
 
 
