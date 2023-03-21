@@ -15,9 +15,9 @@ def eval(args):
     elif args.model == 'bloom':
         actor = BLOOMActor(pretrained=args.pretrain).to(torch.cuda.current_device())
     elif args.model == 'opt':
-        actor = OPTActor(pretrained=args.pretrain).to(torch.cuda.current_device())
-        #actor = AutoModelForCausalLM.from_pretrained('facebook/opt-125m')
-        #actor.to(torch.cuda.current_device())
+        #actor = OPTActor(pretrained=args.pretrain).to(torch.cuda.current_device())
+        actor = AutoModelForCausalLM.from_pretrained('facebook/opt-125m')
+        actor.to(torch.cuda.current_device())
     else:
         raise ValueError(f'Unsupported model "{args.model}"')
 
