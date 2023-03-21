@@ -9,7 +9,7 @@ from chatgpt.models.gpt import GPTRM
 from chatgpt.models.opt import OPTRM
 from chatgpt.trainer import RewardModelTrainer
 from chatgpt.trainer.strategies import ColossalAIStrategy, DDPStrategy, NaiveStrategy
-from datasets import load_dataset, train_test_split
+from datasets import load_dataset
 from random import randint
 from torch.optim import Adam
 from transformers import AutoTokenizer, BloomTokenizerFast
@@ -86,7 +86,7 @@ def train(args):
         if 'test' not in data.keys():
             train_data = data['train']
             # Split the train dataset into train, validation, and test
-            train_data, valid_data, eval_data = train_test_split(train_data, test_size=0.1, seed=42)
+            train_data, valid_data, eval_data = train_data.train_test_split(train_data, test_size=0.1, seed=42)
         else:
             eval_data = data['test']
 
