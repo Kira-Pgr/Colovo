@@ -15,7 +15,6 @@ def eval(args):
     elif args.model == 'bloom':
         actor = BLOOMActor(pretrained=args.pretrain).to(torch.cuda.current_device())
     elif args.model == 'opt':
-        #actor = OPTActor(pretrained=args.pretrain).to(torch.cuda.current_device())
         actor = AutoModelForCausalLM.from_pretrained('facebook/opt-125m')
         actor.to(torch.cuda.current_device())
     else:
@@ -46,7 +45,8 @@ def eval(args):
                              top_p=0.95,
                              num_return_sequences=1)
     output = tokenizer.batch_decode(outputs[0], skip_special_tokens=True)
-    print(output)
+    string = ' '.join(output)
+    print(string)
 
 
 if __name__ == '__main__':
