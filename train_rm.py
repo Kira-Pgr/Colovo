@@ -1,5 +1,5 @@
 import argparse
-
+from datasets import Dataset
 import loralib as lora
 import torch
 from chatgpt.dataset import HhRlhfDataset, RmStaticDataset
@@ -108,6 +108,8 @@ def train(args):
                                  optim=optim,
                                  loss_fn = loss_fn,
                                  train_dataset=train_dataset,
+                                 valid_dataset=valid_dataset,
+                                 eval_dataset=eval_dataset,
                                  batch_size=args.batch_size,
                                  max_epochs=args.max_epochs)
 
