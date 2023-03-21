@@ -1,5 +1,5 @@
 import argparse
-
+from transformers import AutoModelForCausalLM
 import torch
 from chatgpt.models.bloom import BLOOMActor
 from chatgpt.models.gpt import GPTActor
@@ -15,24 +15,14 @@ def eval(args):
     elif args.model == 'bloom':
         actor = BLOOMActor(pretrained=args.pretrain).to(torch.cuda.current_device())
     elif args.model == 'opt':
-        actor = OPTActor(pretrained=args.pretrain).to(torch.cuda.current_device())
+        #actor = OPTActor(pretrained=args.pretrain).to(torch.cuda.current_device())
+        actor = AutoModelForCausalLM.from_pretrained('facebook/opt-125m')
+        actor.to(torch.cuda.current_device())
     else:
         raise ValueError(f'Unsupported model "{args.model}"')
 
     state_dict = torch.load(args.model_path)
-    if args.model == 'opt':
-        new_state_dict = {}
-        for key, value in state_dict.items():
-            if key == "value_head.weight":
-                new_key = "lm_head.weight"
-            elif key == "value_head.bias":
-                continue  # You can skip this key as it's not needed for lm_head
-            else:
-                new_key = key
-            new_state_dict[new_key] = value
-        actor.model.load_state_dict(new_state_dict)
-    else:
-        actor.model.load_state_dict(state_dict)
+    actor.model.load_state_dict(state_dict)
 
     # configure tokenizer
     if args.model == 'gpt2':
