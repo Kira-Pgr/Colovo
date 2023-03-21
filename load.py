@@ -42,7 +42,7 @@ def eval(args):
         tokenizer = AutoTokenizer.from_pretrained('bigscience/bloom-560m')
         tokenizer.pad_token = tokenizer.eos_token
     elif args.model == 'opt':
-        tokenizer = AutoTokenizer.from_pretrained('facebook/opt-350m')
+        tokenizer = AutoTokenizer.from_pretrained('facebook/opt-125m')
     else:
         raise ValueError(f'Unsupported model "{args.model}"')
 
