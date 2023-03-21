@@ -88,8 +88,8 @@ def train(args):
             train_data = data['train']
             # Split the train dataset into train, validation, and test
             train_data, valid_data, eval_data = Dataset.train_test_split(train_data, test_size=0.1, seed=42)
-            else:
-                eval_data = data['test']
+        else:
+            eval_data = data['test']
 
     
     if args.dataset == 'Dahoas/rm-static':
