@@ -84,8 +84,8 @@ def train(args):
         eval_data = data['test'].select(range(10)) 
     else:
         train_data = data['train']
-        eval_data = data['test']
-    valid_data = data['test'].select((randint(0, len(eval_data) - 1) for _ in range(len(eval_data)//10)))
+        #eval_data = data['test']
+    #valid_data = data['test'].select((randint(0, len(eval_data) - 1) for _ in range(len(eval_data)//10)))
     
     if args.dataset == 'Dahoas/rm-static':
         train_dataset = RmStaticDataset(train_data, tokenizer, max_len)
@@ -93,8 +93,8 @@ def train(args):
         eval_dataset = RmStaticDataset(eval_data, tokenizer, max_len)
     elif args.dataset == 'Anthropic/hh-rlhf':
         train_dataset = HhRlhfDataset(train_data, tokenizer, max_len)
-        valid_dataset = HhRlhfDataset(valid_data, tokenizer, max_len)
-        eval_dataset = HhRlhfDataset(eval_data, tokenizer, max_len)
+        #valid_dataset = HhRlhfDataset(valid_data, tokenizer, max_len)
+        #eval_dataset = HhRlhfDataset(eval_data, tokenizer, max_len)
     else:
         raise ValueError(f'Unsupported dataset "{args.dataset}"')
     
@@ -103,8 +103,8 @@ def train(args):
                                  optim=optim,
                                  loss_fn = loss_fn,
                                  train_dataset=train_dataset,
-                                 valid_dataset=valid_dataset,
-                                 eval_dataset=eval_dataset,
+                                 #valid_dataset=valid_dataset,
+                                 #eval_dataset=eval_dataset,
                                  batch_size=args.batch_size,
                                  max_epochs=args.max_epochs)
 
