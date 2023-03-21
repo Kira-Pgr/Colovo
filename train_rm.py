@@ -83,7 +83,14 @@ def train(args):
         train_data = data['train'].select(range(100))
         eval_data = data['test'].select(range(10)) 
     else:
-        train_data = data['train']
+        # If there is no 'test' split, create validation and test splits from the 'train' split
+        if 'test' not in data.keys():
+            train_data = data['train']
+            # Split the train dataset into train, validation, and test
+            train_data, valid_data, eval_data = Dataset.train_test_split(train_data, test_size=0.1, seed=42)
+            else:
+                eval_data = data['test']
+
     
     if args.dataset == 'Dahoas/rm-static':
         train_dataset = RmStaticDataset(train_data, tokenizer, max_len)
@@ -91,6 +98,8 @@ def train(args):
         eval_dataset = RmStaticDataset(eval_data, tokenizer, max_len)
     elif args.dataset == 'Anthropic/hh-rlhf':
         train_dataset = HhRlhfDataset(train_data, tokenizer, max_len)
+        valid_dataset = HhRlhfDataset(valid_data, tokenizer, max_len)
+        eval_dataset = HhRlhfDataset(eval_data, tokenizer, max_len)
     else:
         raise ValueError(f'Unsupported dataset "{args.dataset}"')
     
