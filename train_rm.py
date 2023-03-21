@@ -85,8 +85,15 @@ def train(args):
         # If there is no 'test' split, create validation and test splits from the 'train' split
         if 'test' not in data.keys():
             train_data = data['train']
-            # Split the train dataset into train, validation, and test
-            train_data, valid_data, eval_data = train_data.train_test_split(train_data, test_size=0.1, seed=42)
+            # Split the train dataset into train and test
+            splits = train_data.train_test_split(test_size=0.1, seed=42)
+            train_data = splits['train']
+            eval_data = splits['test']
+
+            # Split the train dataset again into train and validation
+            splits = train_data.train_test_split(test_size=0.1, seed=42)
+            train_data = splits['train']
+            valid_data = splits['test']
         else:
             eval_data = data['test']
 
