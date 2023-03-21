@@ -20,7 +20,19 @@ def eval(args):
         raise ValueError(f'Unsupported model "{args.model}"')
 
     state_dict = torch.load(args.model_path)
-    actor.model.load_state_dict(state_dict)
+    if args.model == 'opt':
+        new_state_dict = {}
+        for key, value in state_dict.items():
+            if key == "value_head.weight":
+                new_key = "lm_head.weight"
+            elif key == "value_head.bias":
+                continue  # You can skip this key as it's not needed for lm_head
+            else:
+                new_key = key
+            new_state_dict[new_key] = value
+        actor.model.load_state_dict(new_state_dict)
+    else:
+        actor.model.load_state_dict(state_dict)
 
     # configure tokenizer
     if args.model == 'gpt2':
