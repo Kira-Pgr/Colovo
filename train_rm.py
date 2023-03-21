@@ -1,4 +1,5 @@
 import argparse
+
 import loralib as lora
 import torch
 from chatgpt.dataset import HhRlhfDataset, RmStaticDataset
@@ -74,7 +75,6 @@ def train(args):
     # prepare for data and dataset
     if args.subset is not None:
         data = load_dataset(args.dataset, data_dir=args.subset)
-        print(data)
     else:
         data = load_dataset(args.dataset)
     
@@ -82,21 +82,9 @@ def train(args):
         train_data = data['train'].select(range(100))
         eval_data = data['test'].select(range(10)) 
     else:
-        # If there is no 'test' split, create validation and test splits from the 'train' split
-        if 'test' not in data.keys():
-            train_data = data['train']
-            # Split the train dataset into train and test
-            splits = train_data.train_test_split(test_size=0.1, seed=42)
-            train_data = splits['train']
-            eval_data = splits['test']
-
-            # Split the train dataset again into train and validation
-            splits = train_data.train_test_split(test_size=0.1, seed=42)
-            train_data = splits['train']
-            valid_data = splits['test']
-        else:
-            eval_data = data['test']
-
+        train_data = data['train'].select(range(5000))
+        eval_data = data['test']
+    valid_data = data['test'].select((randint(0, len(eval_data) - 1) for _ in range(len(eval_data)//10)))
     
     if args.dataset == 'Dahoas/rm-static':
         train_dataset = RmStaticDataset(train_data, tokenizer, max_len)
