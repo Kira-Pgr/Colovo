@@ -90,7 +90,7 @@ def train(args):
         eval_data = data['test'].select(range(10)) 
     else:
         train_data = data['train'].select(range(50))
-        eval_data = data['train'].select(range(5))
+        eval_data = data['train'].select(range(50))
     valid_data = data['train'].select((randint(0, len(eval_data) - 1) for _ in range(len(eval_data)//10)))
     
     if args.dataset == 'Dahoas/rm-static':
