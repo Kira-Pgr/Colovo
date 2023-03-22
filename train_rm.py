@@ -80,7 +80,8 @@ def train(args):
             data = load_dataset(args.dataset, data_dir=args.subset)
     else:
         if args.local_dataset is not None:
-            data = load_from_disk(args.local_dataset)
+            #data = load_from_disk(args.local_dataset)
+            load_dataset("Datasets", data_files="combined_dataset.parquet")
         else:
             data = load_dataset(args.dataset)
     

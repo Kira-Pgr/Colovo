@@ -1,0 +1,24 @@
+{"default": {
+    "description": "",
+    "citation": "",
+    "homepage": "",
+    "license": "",
+    "features": {
+        "prompt": {
+            "dtype": "string",
+            "_type": "Value"
+        },
+        "response": {
+            "dtype": "string",
+            "_type": "Value"
+        },
+        "chosen": {
+            "dtype": "string",
+            "_type": "Value"
+        },
+        "rejected": {
+            "dtype": "string",
+            "_type": "Value"
+        }
+    }
+}}
