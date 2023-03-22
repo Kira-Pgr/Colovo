@@ -10,7 +10,7 @@ from chatgpt.models.gpt import GPTRM
 from chatgpt.models.opt import OPTRM
 from chatgpt.trainer import RewardModelTrainer
 from chatgpt.trainer.strategies import ColossalAIStrategy, DDPStrategy, NaiveStrategy
-from datasets import load_dataset
+from datasets import load_dataset,load_from_disk
 from random import randint
 from torch.optim import Adam
 from transformers import AutoTokenizer, BloomTokenizerFast
