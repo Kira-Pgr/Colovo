@@ -74,9 +74,15 @@ def train(args):
     
     # prepare for data and dataset
     if args.subset is not None:
-        data = load_dataset(args.dataset, data_dir=args.subset)
+        if args.local_dataset is not None:
+            data = load_from_disk(args.local_dataset, dataset_path=args.subset)
+        else:
+            data = load_dataset(args.dataset, data_dir=args.subset)
     else:
-        data = load_dataset(args.dataset)
+        if args.local_dataset is not None:
+            data = load_from_disk(args.local_dataset)
+        else:
+            data = load_dataset(args.dataset)
     
     if args.test:
         train_data = data['train'].select(range(100))
@@ -134,5 +140,6 @@ if __name__ == '__main__':
     parser.add_argument('--lora_rank', type=int, default=0, help="low-rank adaptation matrices rank")
     parser.add_argument('--loss_fn', type=str, default='log_sig', choices=['log_sig', 'log_exp'])
     parser.add_argument('--test', type=bool, default=False)
+    parser.add_argument('--local_dataset', type=str, default=None)
     args = parser.parse_args()
     train(args)
