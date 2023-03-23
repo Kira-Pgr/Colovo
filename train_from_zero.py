@@ -68,7 +68,7 @@ def main(args):
         tokenizer = BloomTokenizerFast.from_pretrained(args.pretrain)
         tokenizer.pad_token = tokenizer.eos_token
     elif args.model == 'opt':
-        tokenizer = AutoTokenizer.from_pretrained("facebook/opt-350m")
+        tokenizer = AutoTokenizer.from_pretrained("facebook/opt-125m")
     else:
         raise ValueError(f'Unsupported model "{args.model}"')
 
