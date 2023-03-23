@@ -118,9 +118,8 @@ def train(args):
     trainer.fit()
     # save model checkpoint after fitting on only rank0
     #model_without_ddp = trainer.model.module
-    #strategy.save_model(model_without_ddp, args.save_path, only_rank0=True)
-    if strategy.get_rank() == 0:
-        torch.save(model.state_dict(), args.save_path)
+    strategy.save_model(trainer.model, args.save_path, only_rank0=True)
+    #torch.save(model.state_dict(), args.save_path)
     # save optimizer checkpoint on all ranks
     if args.need_optim_ckpt:
         strategy.save_optimizer(trainer.optimizer, 'rm_optim_checkpoint_%d.pt' % (torch.cuda.current_device()), only_rank0=False)
