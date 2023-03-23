@@ -141,7 +141,7 @@ if __name__ == '__main__':
     parser.add_argument('--lora_rank', type=int, default=0, help="low-rank adaptation matrices rank")
     parser.add_argument('--save_ckpt_path',
                         type=str,
-                        default='model_ckpt.pt',
+                        default='model_ckpt',
                         help="path to save checkpoint, None means not to save")
     parser.add_argument('--save_ckpt_interval', type=int, default=1, help="the interval of episode to save checkpoint")
     args = parser.parse_args()
