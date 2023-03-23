@@ -44,8 +44,8 @@ def main(args):
             actor = BLOOMActor(pretrained=args.pretrain, lora_rank=args.lora_rank).to(torch.cuda.current_device())
             critic = BLOOMCritic(pretrained=args.pretrain, lora_rank=args.lora_rank).to(torch.cuda.current_device())
         elif args.model == 'opt':
-            actor = OPTActor(pretrained=False, lora_rank=args.lora_rank).to(torch.cuda.current_device())
-            critic = OPTCritic(pretrained=False, lora_rank=args.lora_rank).to(torch.cuda.current_device())
+            actor = OPTActor(pretrained=args.pretrain, lora_rank=args.lora_rank).to(torch.cuda.current_device())
+            critic = OPTCritic(pretrained=args.pretrain, lora_rank=args.lora_rank).to(torch.cuda.current_device())
         else:
             raise ValueError(f'Unsupported model "{args.model}"')
 
