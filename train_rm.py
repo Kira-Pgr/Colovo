@@ -44,7 +44,7 @@ def train(args):
         
         if args.model_path is not None:
             state_dict = torch.load(args.model_path)
-            model.load_state_dict(state_dict)
+            model.load_state_dict(state_dict,strict=False)
         
     # configure tokenizer
     if args.model == 'gpt2':
