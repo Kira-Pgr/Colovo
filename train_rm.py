@@ -115,7 +115,7 @@ def train(args):
                                  batch_size=args.batch_size,
                                  max_epochs=args.max_epochs)
 
-    trainer.fit()
+    trainer.fit(num_episodes=args.num_episodes)
     # save model checkpoint after fitting on only rank0
     #model_without_ddp = trainer.model.module
     strategy.save_model(trainer.model, args.save_path, only_rank0=True)
@@ -138,6 +138,7 @@ if __name__ == '__main__':
                         default='Dahoas/rm-static')
     parser.add_argument('--subset', type=str, default=None)
     parser.add_argument('--save_path', type=str, default='rm_ckpt.pt')
+    parser.add_argument('--num_episodes', type=int, default=1)
     parser.add_argument('--max_epochs', type=int, default=1)
     parser.add_argument('--batch_size', type=int, default=1)
     parser.add_argument('--max_len', type=int, default=512)
