@@ -115,7 +115,7 @@ def train(args):
                                  batch_size=args.batch_size,
                                  max_epochs=args.max_epochs)
 
-    trainer.fit(num_episodes=args.num_episodes)
+    trainer.fit()
     # save model checkpoint after fitting on only rank0
     #model_without_ddp = trainer.model.module
     strategy.save_model(trainer.model, args.save_path, only_rank0=True)
