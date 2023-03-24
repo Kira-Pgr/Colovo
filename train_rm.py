@@ -89,10 +89,10 @@ def train(args):
         train_data = data['train'].select(range(100))
         eval_data = data['test'].select(range(10)) 
     else:
-        train_data = data['train'].select(range(5000))
-        eval_data = data['train'].select(range(50))
-    valid_data = data['train'].select((randint(0, len(eval_data) - 1) for _ in range(len(eval_data)//10)))
-    #valid_data = data['train'].select(range(3))
+        train_data = data['train']
+        eval_data = data['train'].select(range(3))
+    #valid_data = data['train'].select((randint(0, len(eval_data) - 1) for _ in range(len(eval_data)//10)))
+    valid_data = data['train'].select(range(3))
     
     if args.dataset == 'Dahoas/rm-static':
         train_dataset = RmStaticDataset(train_data, tokenizer, max_len)
